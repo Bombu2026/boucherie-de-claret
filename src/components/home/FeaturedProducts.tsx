@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getFeaturedProducts } from "@/config/products";
 import { useCart } from "@/components/cart/CartProvider";
 import { formatPrice } from "@/lib/utils";
+import { ProductImage } from "@/components/ui/ProductImage";
 import type { Product } from "@/types";
 
 function ProductCard({ product }: { product: Product }) {
@@ -11,8 +12,14 @@ function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col">
-      {/* Image placeholder */}
-      <div className="img-placeholder h-56 w-full relative">
+      {/* Image */}
+      <div className="relative h-56 w-full overflow-hidden">
+        <ProductImage
+          src={product.image}
+          alt={product.name}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        />
         {product.badge && (
           <span className="absolute top-3 left-3 z-10 bg-accent text-white text-xs font-semibold px-2.5 py-1 rounded-sm">
             {product.badge}

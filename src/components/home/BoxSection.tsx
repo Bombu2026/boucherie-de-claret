@@ -3,6 +3,7 @@
 import { products } from "@/config/products";
 import { useCart } from "@/components/cart/CartProvider";
 import { formatPrice } from "@/lib/utils";
+import { ProductImage } from "@/components/ui/ProductImage";
 import type { Product } from "@/types";
 
 function BoxCard({ product }: { product: Product }) {
@@ -10,8 +11,14 @@ function BoxCard({ product }: { product: Product }) {
 
   return (
     <div className="bg-white/5 border border-white/10 rounded-sm overflow-hidden flex flex-col hover:border-white/20 transition-colors duration-200">
-      {/* Image placeholder */}
-      <div className="img-placeholder h-52 w-full relative">
+      {/* Image */}
+      <div className="relative h-52 w-full overflow-hidden">
+        <ProductImage
+          src={product.image}
+          alt={product.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+        />
         {product.badge && (
           <span className="absolute top-3 left-3 z-10 bg-gold text-white text-xs font-semibold px-2.5 py-1 rounded-sm">
             {product.badge}

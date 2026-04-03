@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { shop } from "@/config/shop";
 import { formatPrice } from "@/lib/utils";
+import { ProductImage } from "@/components/ui/ProductImage";
 
 // ---------------------------------------------------------------------------
 // Cart Sidebar
@@ -123,11 +124,17 @@ function CartSidebar() {
             <ul className="space-y-4">
               {items.map(({ product, quantity }) => (
                 <li key={product.id} className="flex gap-4">
-                  {/* Image placeholder */}
-                  <div
-                    className="w-16 h-16 rounded-lg flex-shrink-0 img-placeholder"
-                    aria-hidden="true"
-                  />
+                  {/* Image */}
+                  <div className="relative w-16 h-16 rounded-lg flex-shrink-0 overflow-hidden" aria-hidden="true">
+                    <ProductImage
+                      src={product.image}
+                      alt={product.name}
+                      width={64}
+                      height={64}
+                      fill={false}
+                      sizes="64px"
+                    />
+                  </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-primary truncate">{product.name}</p>
                     <p className="text-xs text-gray-500 mb-2">{"weight" in product ? product.weight : ""}</p>

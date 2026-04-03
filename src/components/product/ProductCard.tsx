@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Product } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/components/cart/CartProvider";
+import { ProductImage } from "@/components/ui/ProductImage";
 
 interface ProductCardProps {
   product: Product;
@@ -15,17 +16,18 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="group relative flex flex-col bg-white border border-gray-100 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
       {/* Image */}
-      <Link href={`/nos-viandes/${product.slug}`} className="block relative aspect-[4/3]">
-        <div className="img-placeholder w-full h-full">
-          {product.badge && (
-            <span className="absolute top-3 left-3 z-10 bg-[#7C1D1D] text-white text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
-              {product.badge}
-            </span>
-          )}
-          <span className="relative z-10 text-white/20 text-5xl select-none">
-            ☽
+      <Link href={`/nos-viandes/${product.slug}`} className="block relative aspect-[4/3] overflow-hidden">
+        <ProductImage
+          src={product.image}
+          alt={product.name}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        {product.badge && (
+          <span className="absolute top-3 left-3 z-10 bg-[#7C1D1D] text-white text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
+            {product.badge}
           </span>
-        </div>
+        )}
       </Link>
 
       {/* Contenu */}

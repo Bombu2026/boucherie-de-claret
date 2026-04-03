@@ -6,6 +6,7 @@ import { useCart } from "@/components/cart/CartProvider";
 import { PartnerUpsell } from "@/components/cart/PartnerUpsell";
 import { shop } from "@/config/shop";
 import { formatPrice } from "@/lib/utils";
+import { ProductImage } from "@/components/ui/ProductImage";
 
 export default function PanierPage() {
   const {
@@ -74,8 +75,17 @@ export default function PanierPage() {
                   key={product.id}
                   className="bg-white rounded-xl shadow-sm border border-[var(--color-cream-dark)] p-4 flex gap-4 items-start"
                 >
-                  {/* Image placeholder */}
-                  <div className="img-placeholder w-20 h-20 rounded-lg shrink-0" />
+                  {/* Image */}
+                  <div className="relative w-20 h-20 rounded-lg shrink-0 overflow-hidden">
+                    <ProductImage
+                      src={product.image}
+                      alt={product.name}
+                      width={80}
+                      height={80}
+                      fill={false}
+                      sizes="80px"
+                    />
+                  </div>
 
                   {/* Infos */}
                   <div className="flex-1 min-w-0">

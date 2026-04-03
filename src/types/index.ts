@@ -12,6 +12,7 @@ export interface Product {
   weight: string;
   image: string;
   gallery: string[];
+  imagePrompt: string;
   badge?: string;
   featured?: boolean;
 }
@@ -32,6 +33,7 @@ export interface PartnerProduct {
   price: number;
   category: PartnerCategory;
   image: string;
+  imagePrompt: string;
   badge?: string;
   /** IDs de catégories de produits principaux avec lesquels cet article se marie */
   pairsWith: Category[];

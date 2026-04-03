@@ -1,3 +1,5 @@
+import { ProductImage } from "@/components/ui/ProductImage";
+
 export default function Storytelling() {
   return (
     <section className="bg-white py-20 px-6">
@@ -45,8 +47,15 @@ export default function Storytelling() {
           <div className="mt-8 w-16 h-0.5 bg-gold" />
         </div>
 
-        {/* Image placeholder */}
-        <div className="img-placeholder w-full h-[420px] rounded-sm" />
+        {/* Image */}
+        <div className="relative w-full h-[420px] rounded-sm overflow-hidden">
+          <ProductImage
+            src="/images/storytelling.jpg"
+            alt="Maître boucher — savoir-faire artisanal Boucherie de Claret"
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
+        </div>
       </div>
     </section>
   );

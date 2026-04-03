@@ -1,10 +1,18 @@
 import Link from "next/link";
+import { ProductImage } from "@/components/ui/ProductImage";
 
 export default function Hero() {
   return (
     <section className="relative flex items-center justify-center min-h-[85vh] overflow-hidden">
-      {/* Background placeholder */}
-      <div className="img-placeholder absolute inset-0 w-full h-full" />
+      {/* Background image */}
+      <ProductImage
+        src="/images/hero-bg.jpg"
+        alt="Boucherie de Claret — viandes d'exception"
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0"
+      />
 
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />

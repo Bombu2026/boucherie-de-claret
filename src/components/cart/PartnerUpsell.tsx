@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
 import { getRecommendedPartners, partnerCategories } from "@/config/products";
 import { formatPrice } from "@/lib/utils";
+import { ProductImage } from "@/components/ui/ProductImage";
 import type { Category, PartnerProduct } from "@/types";
 
 function AddButton({ product }: { product: PartnerProduct }) {
@@ -83,7 +84,14 @@ export function PartnerUpsell() {
           >
             {/* Image */}
             <div className="relative">
-              <div className="img-placeholder w-full aspect-square rounded-lg" />
+              <div className="relative w-full aspect-square rounded-lg overflow-hidden">
+                <ProductImage
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="160px"
+                />
+              </div>
               {/* Badge Partenaire */}
               <span className="absolute top-1.5 left-1.5 bg-[#B8860B] text-white text-[10px] font-semibold px-1.5 py-0.5 rounded">
                 Partenaire

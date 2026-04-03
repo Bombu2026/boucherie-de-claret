@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ProductImage } from "@/components/ui/ProductImage";
 
 interface ProductGalleryProps {
   images: string[];
@@ -19,15 +20,22 @@ export function ProductGallery({ images, productName, badge }: ProductGalleryPro
     <div className="flex flex-col gap-4">
       {/* Image principale */}
       <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
-        <div
-          key={selectedIndex}
-          className="img-placeholder w-full h-full transition-opacity duration-300"
-          aria-label={`${productName}${hasImages ? ` — vue ${selectedIndex + 1}` : ""}`}
-        >
-          <span className="relative z-10 text-white/10 text-8xl select-none pointer-events-none">
-            ☽
-          </span>
-        </div>
+        {hasImages ? (
+          <ProductImage
+            key={selectedIndex}
+            src={images[selectedIndex]}
+            alt={`${productName}${hasImages ? ` — vue ${selectedIndex + 1}` : ""}`}
+            fill
+            priority={selectedIndex === 0}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="transition-opacity duration-300"
+          />
+        ) : (
+          <div
+            className="img-placeholder w-full h-full"
+            aria-label={productName}
+          />
+        )}
 
         {badge && (
           <span className="absolute top-4 left-4 z-20 bg-[#7C1D1D] text-white text-sm font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md">
@@ -60,11 +68,12 @@ export function ProductGallery({ images, productName, badge }: ProductGalleryPro
               aria-label={`Vue ${index + 1} de ${productName}`}
               aria-pressed={selectedIndex === index}
             >
-              <div className="img-placeholder w-full h-full">
-                <span className="relative z-10 text-white/10 text-2xl select-none pointer-events-none">
-                  ☽
-                </span>
-              </div>
+              <ProductImage
+                src={images[index]}
+                alt={`${productName} — vue ${index + 1}`}
+                fill
+                sizes="80px"
+              />
             </button>
           ))}
         </div>
