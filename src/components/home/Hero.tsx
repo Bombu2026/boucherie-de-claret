@@ -4,18 +4,18 @@ import { ProductImage } from "@/components/ui/ProductImage";
 export default function Hero() {
   return (
     <section className="relative flex items-center justify-center min-h-[85vh] overflow-hidden">
-      {/* Background image */}
+      {/* Background image — object-left pour cadrer sur la viande, pas le texte incrusté */}
       <ProductImage
         src="/images/hero-bg.png"
-        alt="Boucherie de Claret — viandes d'exception"
+        alt="Viandes d'exception maturées sur étagères en bois"
         fill
         priority
         sizes="100vw"
-        className="absolute inset-0"
+        className="absolute inset-0 object-left"
       />
 
-      {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+      {/* Overlay gradient renforcé pour masquer tout texte résiduel de l'image */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/60 to-black/75" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">

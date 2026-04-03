@@ -36,13 +36,16 @@ export function ProductImage({
     );
   }
 
+  // object-cover en base, les classes custom (object-left, object-[80%_center]) sont ajoutées via className
+  const baseClass = `object-cover ${className}`;
+
   if (fill) {
     return (
       <Image
         src={src}
         alt={alt}
         fill
-        className={`object-cover ${className}`}
+        className={baseClass}
         priority={priority}
         sizes={sizes ?? "100vw"}
         onError={() => setError(true)}
@@ -56,7 +59,7 @@ export function ProductImage({
       alt={alt}
       width={width}
       height={height}
-      className={`object-cover ${className}`}
+      className={baseClass}
       priority={priority}
       sizes={sizes}
       onError={() => setError(true)}

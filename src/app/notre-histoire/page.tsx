@@ -57,16 +57,17 @@ const races = [
 export default function NotreHistoirePage() {
   return (
     <div className="bg-white">
-      {/* Hero */}
+      {/* Hero — object-bottom pour cadrer sur les bouchers, pas le texte incrusté */}
       <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
         <ProductImage
           src="/images/notre-histoire-hero.png"
-          alt="Notre histoire — Boucherie de Claret"
+          alt="Deux générations de bouchers dans l'atelier"
           fill
           priority
           sizes="100vw"
+          className="object-bottom"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/60" />
         <div className="relative z-10 max-w-4xl mx-auto px-6 pb-16 w-full">
           <p className="text-[var(--color-gold)] uppercase tracking-widest text-sm font-semibold mb-3">
             Boucherie de Claret · Toulon depuis 1962
@@ -105,12 +106,14 @@ export default function NotreHistoirePage() {
               </p>
             </div>
           </div>
+          {/* object-[80%_center] pour cadrer sur le boucher à droite, pas le texte à gauche */}
           <div className="relative rounded-2xl aspect-square overflow-hidden">
             <ProductImage
               src="/images/passion.png"
-              alt="La passion de la viande — Boucherie de Claret"
+              alt="Maître boucher découpant la viande dans la boutique"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-[80%_center]"
             />
           </div>
         </div>
@@ -230,12 +233,14 @@ export default function NotreHistoirePage() {
                 ))}
               </div>
             </div>
+            {/* object-[85%_center] pour cadrer sur la viande à droite, pas le texte à gauche */}
             <div className="relative rounded-2xl aspect-[4/3] overflow-hidden">
               <ProductImage
                 src="/images/engagement.png"
-                alt="Notre engagement qualité — traçabilité et chaîne du froid"
+                alt="Pièce de boeuf maturée avec numéro de traçabilité"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-[85%_center]"
               />
             </div>
           </div>
