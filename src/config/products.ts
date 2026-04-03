@@ -136,7 +136,7 @@ export const products: Product[] = [
       "Réfrigérateur 0-4°C sous vide. Consommer sous 5 jours après réception.",
     weight: "~1kg (4 pièces)",
     image: "/images/aubrac.jpg",
-    gallery: ["/images/aubrac.jpg", "/images/aubrac-2.jpg"],
+    gallery: ["/images/aubrac.jpg"],
     imagePrompt: "Rustic French beef bavette and faux-filet on wooden board, herbs de Provence, coarse pepper, warm terracotta tones, traditional French butcher shop",
   },
   {
@@ -198,7 +198,7 @@ export const products: Product[] = [
       "Réfrigérateur 0-4°C. Consommer dans les 3 jours après réception. Congélation possible jusqu'à 3 mois.",
     weight: "~600g (6 pièces)",
     image: "/images/saucisses.jpg",
-    gallery: ["/images/saucisses.jpg", "/images/saucisses-2.jpg"],
+    gallery: ["/images/saucisses.jpg"],
     imagePrompt: "Artisanal French sausages assortment on wooden board, herbs visible in meat, Provence herbs, Espelette pepper, rustic butcher shop, warm lighting",
   },
   {
@@ -218,7 +218,7 @@ export const products: Product[] = [
       "Réfrigérateur 0-4°C. Consommer dans les 3 jours. Ne pas recongeler si décongelées.",
     weight: "~500g (8 pièces)",
     image: "/images/merguez.jpg",
-    gallery: ["/images/merguez.jpg", "/images/merguez-2.jpg"],
+    gallery: ["/images/merguez.jpg"],
     imagePrompt: "Red merguez sausages on dark grill marks, spices visible, North African inspired, smoky atmosphere, close up food photography",
   },
 
@@ -240,7 +240,7 @@ export const products: Product[] = [
       "Réfrigérateur 0-4°C. Consommer dans les 4 jours. Une fois ouvert, emballer dans du film alimentaire.",
     weight: "~400g",
     image: "/images/charcuterie.jpg",
-    gallery: ["/images/charcuterie.jpg", "/images/charcuterie-2.jpg"],
+    gallery: ["/images/charcuterie.jpg"],
     imagePrompt: "Premium French charcuterie board, coppa bresaola saucisson jambon cru, on dark slate, with cornichons and mustard, elegant aperitif setting",
   },
   {
