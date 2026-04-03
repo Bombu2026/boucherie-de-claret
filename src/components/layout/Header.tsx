@@ -229,6 +229,7 @@ const NAV_LINKS = [
   { label: "Notre histoire", href: "/notre-histoire" },
   { label: "Nos viandes", href: "/nos-viandes" },
   { label: "Contact", href: "/contact" },
+  { label: "Programme fidélité", href: "/programme-fidelite" },
 ] as const;
 
 // ---------------------------------------------------------------------------

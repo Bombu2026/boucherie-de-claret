@@ -215,6 +215,44 @@ export default function ComptePage() {
             )}
           </div>
 
+          {/* Points fidélité */}
+          <div className="bg-white rounded-2xl border border-[var(--color-cream-dark)] p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="font-serif text-xl font-bold text-[var(--color-primary)]">
+                Points fidélité
+              </h2>
+              <a
+                href="/programme-fidelite"
+                className="text-sm text-[var(--color-accent)] hover:underline font-medium"
+              >
+                En savoir plus
+              </a>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-6">
+              {/* Points balance */}
+              <div className="flex-1 bg-[var(--color-cream)] rounded-xl p-6 text-center">
+                <p className="font-serif text-4xl font-bold text-[var(--color-accent)]">0</p>
+                <p className="text-sm text-gray-500 mt-1">points disponibles</p>
+              </div>
+              {/* Progress toward reward */}
+              <div className="flex-1 bg-[var(--color-cream)] rounded-xl p-6">
+                <div className="flex items-center justify-between text-sm mb-2">
+                  <span className="text-gray-500">Prochain palier</span>
+                  <span className="font-medium text-[var(--color-primary)]">0 / 300</span>
+                </div>
+                <div className="w-full h-2 bg-[var(--color-cream-dark)] rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{ width: "0%", backgroundColor: "var(--color-accent)" }}
+                  />
+                </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  300 points = 10 % de réduction
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Historique commandes */}
           <div className="bg-white rounded-2xl border border-[var(--color-cream-dark)] p-8">
             <h2 className="font-serif text-xl font-bold text-[var(--color-primary)] mb-6">
