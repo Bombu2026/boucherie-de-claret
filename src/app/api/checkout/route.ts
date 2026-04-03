@@ -83,14 +83,14 @@ export async function POST(request: NextRequest) {
   }
 
   // Validation livraison
-  if (!delivery?.method || !["livraison", "click-collect"].includes(delivery.method)) {
+  if (!delivery?.method || !["chronofresh", "click-collect"].includes(delivery.method)) {
     return NextResponse.json(
       { error: "Méthode de livraison invalide" },
       { status: 400 }
     );
   }
 
-  if (delivery.method === "livraison") {
+  if (delivery.method === "chronofresh") {
     if (!delivery.adresse?.trim() || !delivery.codePostal?.trim() || !delivery.ville?.trim()) {
       return NextResponse.json(
         { error: "Adresse de livraison incomplète" },

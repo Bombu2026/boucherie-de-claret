@@ -8,11 +8,12 @@ import {
   useState,
 } from "react";
 import { promoCodes } from "@/config/products";
-import type { CartItem, Product } from "@/types";
+import type { CartItem, PartnerProduct, Product } from "@/types";
 
 interface CartContextType {
   items: CartItem[];
   addItem: (product: Product) => void;
+  addPartnerItem: (product: PartnerProduct) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -78,6 +79,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  const addPartnerItem = useCallback((product: PartnerProduct) => {
+    setItems((prev) => {
+      const existing = prev.find((i) => i.product.id === product.id);
+      if (existing) {
+        return prev.map((i) =>
+          i.product.id === product.id
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
+        );
+      }
+      return [...prev, { product, quantity: 1, isPartner: true }];
+    });
+  }, []);
+
   const removeItem = useCallback((productId: string) => {
     setItems((prev) => prev.filter((i) => i.product.id !== productId));
   }, []);
@@ -125,6 +140,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       value={{
         items,
         addItem,
+        addPartnerItem,
         removeItem,
         updateQuantity,
         clearCart,

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
 import { shop } from "@/config/shop";
 import { formatPrice } from "@/lib/utils";
-import type { DeliveryMethod, DeliverySlot } from "@/types";
+import { estimateChronofresh, getChronofreshMessage } from "@/lib/chronofresh";
+import type { DeliveryMethod, DeliverySlot, ChronofreshEstimate } from "@/types";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -53,11 +54,17 @@ function generateSlots(): DeliverySlot[] {
       });
     }
   }
-  // 5 slots seulement
   return slots.slice(0, 5);
 }
 
 const DELIVERY_SLOTS = generateSlots();
+
+// ── Capitalize helper ─────────────────────────────────────────────────────────
+
+function capitalize(str: string): string {
+  if (!str) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 // ── Stepper ──────────────────────────────────────────────────────────────────
 
@@ -105,11 +112,145 @@ function Stepper({ current }: { current: Step }) {
   );
 }
 
+// ── Chronofresh icon ─────────────────────────────────────────────────────────
+
+function IconSnowflake({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="12" y1="2" x2="12" y2="22" />
+      <line x1="2" y1="12" x2="22" y2="12" />
+      <polyline points="6 8 12 2 18 8" />
+      <polyline points="6 16 12 22 18 16" />
+      <polyline points="8 6 2 12 8 18" />
+      <polyline points="16 6 22 12 16 18" />
+    </svg>
+  );
+}
+
+function IconPackage({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+      <line x1="12" y1="22.08" x2="12" y2="12" />
+    </svg>
+  );
+}
+
+function IconThermometer({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+    </svg>
+  );
+}
+
+// ── Chronofresh card ─────────────────────────────────────────────────────────
+
+function ChronofreshCard({ estimate }: { estimate: ChronofreshEstimate }) {
+  const message = getChronofreshMessage(estimate);
+  return (
+    <div className="border-2 border-[#0077B6] rounded-xl p-4 bg-blue-50 space-y-3">
+      {/* Header branding */}
+      <div className="flex items-center gap-2">
+        <IconSnowflake className="w-5 h-5 text-[#0077B6] shrink-0" />
+        <span className="font-bold text-[#0077B6] text-sm tracking-wide">
+          Chronofresh
+        </span>
+      </div>
+
+      {/* Description */}
+      <p className="text-xs text-gray-600">
+        Livraison spécialisée produits frais — Chaîne du froid garantie de A à Z
+      </p>
+
+      {/* Estimation dynamique */}
+      <div className="bg-white rounded-lg p-3 space-y-1 border border-blue-100">
+        <p className="text-xs text-gray-500">{message}</p>
+        <p className="text-sm font-semibold text-[var(--color-primary)]">
+          Livraison estimée entre{" "}
+          <span className="text-[#0077B6]">{estimate.minHours}h</span> et{" "}
+          <span className="text-[#0077B6]">{estimate.maxHours}h</span>
+        </p>
+        <p className="text-sm font-medium text-[var(--color-primary)]">
+          {capitalize(estimate.estimatedDate)}
+        </p>
+      </div>
+
+      {/* Bandeau cutoff */}
+      {estimate.cutoffPassed ? (
+        <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-700">
+          <span className="mt-0.5 shrink-0">ℹ</span>
+          <span>Commandez demain avant 14h pour une expédition plus rapide</span>
+        </div>
+      ) : (
+        <div className="flex items-start gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2 text-xs text-green-700">
+          <span className="mt-0.5 shrink-0">●</span>
+          <span>Commandez maintenant pour une expédition aujourd&apos;hui !</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Trust badges ─────────────────────────────────────────────────────────────
+
+function TrustBadges() {
+  const badges = [
+    { icon: <IconPackage className="w-4 h-4 text-gray-400" />, label: "Emballage isotherme" },
+    { icon: <IconSnowflake className="w-4 h-4 text-gray-400" />, label: "Gel eutectique" },
+    { icon: <IconThermometer className="w-4 h-4 text-gray-400" />, label: "0°C à 4°C garanti" },
+  ];
+  return (
+    <div className="border-t border-gray-100 pt-3">
+      <div className="flex items-center justify-between gap-2">
+        {badges.map((b) => (
+          <div key={b.label} className="flex items-center gap-1.5 flex-1 justify-center">
+            {b.icon}
+            <span className="text-xs text-gray-400 whitespace-nowrap">{b.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── Cart summary (compact) ───────────────────────────────────────────────────
 
-function CartSummary() {
+function CartSummary({ deliveryMethod }: { deliveryMethod: DeliveryMethod }) {
   const { items, subtotal, total, promoDiscount } = useCart();
-  const deliveryFee = subtotal >= shop.freeDeliveryThreshold ? 0 : shop.deliveryFee;
+  const deliveryFee = deliveryMethod === "click-collect"
+    ? 0
+    : subtotal >= shop.freeDeliveryThreshold
+    ? 0
+    : shop.deliveryFee;
   const grandTotal = total + deliveryFee;
 
   return (
@@ -134,22 +275,37 @@ function CartSummary() {
         {promoDiscount > 0 && (
           <div className="flex justify-between text-green-600">
             <span>Réduction ({promoDiscount}%)</span>
-            <span>−{formatPrice(subtotal * promoDiscount / 100)}</span>
+            <span>−{formatPrice((subtotal * promoDiscount) / 100)}</span>
           </div>
         )}
-        <div className="flex justify-between text-gray-500">
-          <span>Livraison</span>
-          {deliveryFee === 0 ? (
-            <span className="text-green-600 font-medium">Offerte</span>
-          ) : (
-            <span>{formatPrice(deliveryFee)}</span>
-          )}
-        </div>
+        {/* Livraison Chronofresh */}
+        {deliveryMethod === "chronofresh" && (
+          <div className="flex justify-between">
+            <span className="text-gray-500">Livraison Chronofresh</span>
+            {deliveryFee === 0 ? (
+              <span className="text-green-600 font-medium">Offerte</span>
+            ) : (
+              <span className="text-gray-500">{formatPrice(deliveryFee)}</span>
+            )}
+          </div>
+        )}
+        {deliveryMethod === "click-collect" && (
+          <div className="flex justify-between text-gray-500">
+            <span>Retrait boutique</span>
+            <span className="text-green-600 font-medium">Gratuit</span>
+          </div>
+        )}
         <div className="flex justify-between font-bold text-[var(--color-primary)] text-base pt-1 border-t border-[var(--color-cream-dark)]">
           <span>Total</span>
           <span>{formatPrice(grandTotal)}</span>
         </div>
       </div>
+      {/* Mention Chronofresh sous le total */}
+      {deliveryMethod === "chronofresh" && (
+        <p className="text-xs text-gray-400 mt-2 text-center">
+          Livraison fraîcheur Chronofresh 24–48h
+        </p>
+      )}
     </div>
   );
 }
@@ -197,7 +353,7 @@ function isValidEmail(e: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 }
 function isValidPhone(p: string) {
-  return /^[\d\s\+\-\.]{8,15}$/.test(p.replace(/\s/g, ""));
+  return /^[\d\s+\-.]{8,15}$/.test(p.replace(/\s/g, ""));
 }
 
 // ── Main page ────────────────────────────────────────────────────────────────
@@ -214,18 +370,31 @@ export default function CheckoutPage() {
   const [customerErrors, setCustomerErrors] = useState<Partial<CustomerFields>>({});
 
   const [delivery, setDelivery] = useState<DeliveryFields>({
-    method: "livraison",
+    method: "chronofresh",
     adresse: "",
     codePostal: "",
     ville: "",
     slotId: "",
   });
-  const [deliveryErrors, setDeliveryErrors] = useState<Partial<DeliveryFields & { slot: string }>>({});
+  const [deliveryErrors, setDeliveryErrors] = useState<
+    Partial<DeliveryFields & { slot: string }>
+  >({});
 
   const [submitting, setSubmitting] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
 
-  const deliveryFee = subtotal >= shop.freeDeliveryThreshold ? 0 : shop.deliveryFee;
+  // Chronofresh estimate — computed once on mount (client-side)
+  const [cfEstimate, setCfEstimate] = useState<ChronofreshEstimate | null>(null);
+  useEffect(() => {
+    setCfEstimate(estimateChronofresh());
+  }, []);
+
+  const deliveryFee =
+    delivery.method === "click-collect"
+      ? 0
+      : subtotal >= shop.freeDeliveryThreshold
+      ? 0
+      : shop.deliveryFee;
   const grandTotal = total + deliveryFee;
 
   // ── Empty cart guard ──
@@ -264,7 +433,7 @@ export default function CheckoutPage() {
   // ── Step 2 — Livraison ──
   function validateStep2(): boolean {
     const errs: Partial<DeliveryFields & { slot: string }> = {};
-    if (delivery.method === "livraison") {
+    if (delivery.method === "chronofresh") {
       if (!delivery.adresse.trim()) errs.adresse = "Adresse requise";
       if (!delivery.codePostal.trim() || !/^\d{5}$/.test(delivery.codePostal.trim()))
         errs.codePostal = "Code postal invalide (5 chiffres)";
@@ -408,9 +577,20 @@ export default function CheckoutPage() {
                   <div className="grid grid-cols-2 gap-3">
                     {(
                       [
-                        { v: "livraison", label: "Livraison à domicile", sub: `${formatPrice(deliveryFee === 0 ? 0 : shop.deliveryFee)}` },
-                        { v: "click-collect", label: "Click & Collect", sub: "Retrait en boutique" },
-                      ] as { v: DeliveryMethod; label: string; sub: string }[]
+                        {
+                          v: "chronofresh" as DeliveryMethod,
+                          label: "Chronofresh — Livraison fraîcheur",
+                          sub:
+                            deliveryFee === 0
+                              ? "Offerte"
+                              : formatPrice(shop.deliveryFee),
+                        },
+                        {
+                          v: "click-collect" as DeliveryMethod,
+                          label: "Click & Collect",
+                          sub: "Retrait en boutique",
+                        },
+                      ]
                     ).map(({ v, label, sub }) => (
                       <button
                         key={v}
@@ -420,7 +600,9 @@ export default function CheckoutPage() {
                         }
                         className={`p-4 rounded-xl border-2 text-left transition-colors ${
                           delivery.method === v
-                            ? "border-[var(--color-accent)] bg-red-50"
+                            ? v === "chronofresh"
+                              ? "border-[#0077B6] bg-blue-50"
+                              : "border-[var(--color-accent)] bg-red-50"
                             : "border-gray-200 hover:border-gray-300 bg-white"
                         }`}
                       >
@@ -432,46 +614,59 @@ export default function CheckoutPage() {
                     ))}
                   </div>
 
-                  {/* Livraison : adresse */}
-                  {delivery.method === "livraison" && (
+                  {/* Chronofresh : carte + badges + adresse */}
+                  {delivery.method === "chronofresh" && (
                     <div className="space-y-4">
-                      <CheckoutField
-                        label="Adresse"
-                        name="adresse"
-                        value={delivery.adresse}
-                        onChange={(v) => {
-                          setDelivery((p) => ({ ...p, adresse: v }));
-                          setDeliveryErrors((p) => ({ ...p, adresse: undefined }));
-                        }}
-                        autoComplete="street-address"
-                        placeholder="12 Rue de la République"
-                        error={deliveryErrors.adresse}
-                      />
-                      <div className="grid grid-cols-2 gap-3">
+                      {/* Carte Chronofresh */}
+                      {cfEstimate ? (
+                        <ChronofreshCard estimate={cfEstimate} />
+                      ) : (
+                        <div className="border-2 border-[#0077B6] rounded-xl p-4 bg-blue-50 animate-pulse h-24" />
+                      )}
+
+                      {/* Badges de confiance */}
+                      <TrustBadges />
+
+                      {/* Formulaire adresse */}
+                      <div className="space-y-4 pt-2">
                         <CheckoutField
-                          label="Code postal"
-                          name="codePostal"
-                          value={delivery.codePostal}
+                          label="Adresse"
+                          name="adresse"
+                          value={delivery.adresse}
                           onChange={(v) => {
-                            setDelivery((p) => ({ ...p, codePostal: v }));
-                            setDeliveryErrors((p) => ({ ...p, codePostal: undefined }));
+                            setDelivery((p) => ({ ...p, adresse: v }));
+                            setDeliveryErrors((p) => ({ ...p, adresse: undefined }));
                           }}
-                          autoComplete="postal-code"
-                          placeholder="83000"
-                          error={deliveryErrors.codePostal}
+                          autoComplete="street-address"
+                          placeholder="12 Rue de la République"
+                          error={deliveryErrors.adresse}
                         />
-                        <CheckoutField
-                          label="Ville"
-                          name="ville"
-                          value={delivery.ville}
-                          onChange={(v) => {
-                            setDelivery((p) => ({ ...p, ville: v }));
-                            setDeliveryErrors((p) => ({ ...p, ville: undefined }));
-                          }}
-                          autoComplete="address-level2"
-                          placeholder="Toulon"
-                          error={deliveryErrors.ville}
-                        />
+                        <div className="grid grid-cols-2 gap-3">
+                          <CheckoutField
+                            label="Code postal"
+                            name="codePostal"
+                            value={delivery.codePostal}
+                            onChange={(v) => {
+                              setDelivery((p) => ({ ...p, codePostal: v }));
+                              setDeliveryErrors((p) => ({ ...p, codePostal: undefined }));
+                            }}
+                            autoComplete="postal-code"
+                            placeholder="83000"
+                            error={deliveryErrors.codePostal}
+                          />
+                          <CheckoutField
+                            label="Ville"
+                            name="ville"
+                            value={delivery.ville}
+                            onChange={(v) => {
+                              setDelivery((p) => ({ ...p, ville: v }));
+                              setDeliveryErrors((p) => ({ ...p, ville: undefined }));
+                            }}
+                            autoComplete="address-level2"
+                            placeholder="Toulon"
+                            error={deliveryErrors.ville}
+                          />
+                        </div>
                       </div>
                     </div>
                   )}
@@ -492,8 +687,8 @@ export default function CheckoutPage() {
                   {/* Créneaux */}
                   <div>
                     <p className="text-sm font-medium text-[var(--color-primary)] mb-2">
-                      {delivery.method === "livraison"
-                        ? "Créneau de livraison"
+                      {delivery.method === "chronofresh"
+                        ? "Créneau de réception Chronofresh"
                         : "Créneau de retrait"}
                     </p>
                     <div className="space-y-2">
@@ -502,7 +697,9 @@ export default function CheckoutPage() {
                           key={slot.id}
                           className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${
                             delivery.slotId === slot.id
-                              ? "border-[var(--color-accent)] bg-red-50"
+                              ? delivery.method === "chronofresh"
+                                ? "border-[#0077B6] bg-blue-50"
+                                : "border-[var(--color-accent)] bg-red-50"
                               : "border-gray-200 hover:border-gray-300 bg-white"
                           }`}
                         >
@@ -565,12 +762,22 @@ export default function CheckoutPage() {
                     </RecapBlock>
 
                     <RecapBlock title="Livraison">
-                      {delivery.method === "livraison" ? (
+                      {delivery.method === "chronofresh" ? (
                         <>
-                          <p>Livraison à domicile</p>
+                          <p className="font-medium text-[#0077B6]">
+                            Chronofresh — Livraison fraîcheur
+                          </p>
                           <p className="text-gray-400">
                             {delivery.adresse}, {delivery.codePostal} {delivery.ville}
                           </p>
+                          {cfEstimate && (
+                            <p className="text-gray-400">
+                              Livraison estimée le{" "}
+                              <span className="font-medium">
+                                {capitalize(cfEstimate.estimatedDate)}
+                              </span>
+                            </p>
+                          )}
                         </>
                       ) : (
                         <>
@@ -616,6 +823,17 @@ export default function CheckoutPage() {
                     </span>
                   </div>
 
+                  {/* Bandeau Chronofresh avant le bouton payer */}
+                  {delivery.method === "chronofresh" && (
+                    <div className="flex items-start gap-3 bg-blue-50 border border-[#0077B6]/30 rounded-xl px-4 py-3 text-sm text-[#005f8e]">
+                      <IconSnowflake className="w-4 h-4 shrink-0 mt-0.5 text-[#0077B6]" />
+                      <p>
+                        Vos produits seront expédiés sous emballage isotherme via Chronofresh.
+                        Chaîne du froid respectée de notre atelier à votre porte.
+                      </p>
+                    </div>
+                  )}
+
                   <div className="flex gap-3">
                     <button
                       type="button"
@@ -639,7 +857,7 @@ export default function CheckoutPage() {
 
             {/* Sidebar récap panier */}
             <div className="lg:col-span-1">
-              <CartSummary />
+              <CartSummary deliveryMethod={delivery.method} />
             </div>
           </div>
         </div>

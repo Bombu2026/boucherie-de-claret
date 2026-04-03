@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/cart/CartProvider";
+import { PartnerUpsell } from "@/components/cart/PartnerUpsell";
 import { shop } from "@/config/shop";
 import { formatPrice } from "@/lib/utils";
 
@@ -63,9 +64,10 @@ export default function PanierPage() {
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Liste articles */}
+          {/* Colonne gauche : articles + upsell + promo */}
           <div className="lg:col-span-2 space-y-4">
-            {items.map(({ product, quantity }) => {
+            {/* Liste des articles */}
+            {items.map(({ product, quantity, isPartner }) => {
               const lineTotal = product.price * quantity;
               return (
                 <div
@@ -77,10 +79,19 @@ export default function PanierPage() {
 
                   {/* Infos */}
                   <div className="flex-1 min-w-0">
-                    <h2 className="font-serif font-semibold text-[var(--color-primary)] text-base leading-tight">
-                      {product.name}
-                    </h2>
-                    <p className="text-xs text-gray-400 mt-0.5">{product.weight}</p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h2 className="font-serif font-semibold text-[var(--color-primary)] text-base leading-tight">
+                        {product.name}
+                      </h2>
+                      {isPartner && (
+                        <span className="shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-[#B8860B]/10 text-[#B8860B] border border-[#B8860B]/25">
+                          Partenaire
+                        </span>
+                      )}
+                    </div>
+                    {"weight" in product && product.weight && (
+                      <p className="text-xs text-gray-400 mt-0.5">{product.weight}</p>
+                    )}
                     <p className="text-sm text-gray-500 mt-0.5">
                       {formatPrice(product.price)} / unité
                     </p>
@@ -124,8 +135,11 @@ export default function PanierPage() {
               );
             })}
 
+            {/* Upsell partenaires */}
+            <PartnerUpsell />
+
             {/* Code promo */}
-            <div className="bg-white rounded-xl shadow-sm border border-[var(--color-cream-dark)] p-5 mt-6">
+            <div className="bg-white rounded-xl shadow-sm border border-[var(--color-cream-dark)] p-5 mt-2">
               <h3 className="font-serif text-base font-semibold text-[var(--color-primary)] mb-3">
                 Code promotionnel
               </h3>

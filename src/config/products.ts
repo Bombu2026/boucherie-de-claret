@@ -1,4 +1,4 @@
-import type { Product, CategoryInfo } from "@/types";
+import type { Product, CategoryInfo, PartnerProduct, PartnerCategoryInfo, Category } from "@/types";
 
 export const categories: CategoryInfo[] = [
   {
@@ -23,6 +23,13 @@ export const categories: CategoryInfo[] = [
   },
 ];
 
+export const partnerCategories: PartnerCategoryInfo[] = [
+  { slug: "vins", name: "Vins" },
+  { slug: "sauces", name: "Sauces & Marinades" },
+  { slug: "epices", name: "Épices & Condiments" },
+  { slug: "accompagnements", name: "Accompagnements" },
+];
+
 export const products: Product[] = [
   // --- Boeuf Premium ---
   {
@@ -38,8 +45,11 @@ export const products: Product[] = [
     origin: "Wagyu japonais, élevage certifié",
     cookingTip:
       "Cuisson à la poêle en fonte, 2 min par face à feu vif. Repos 5 min. Ne pas dépasser la cuisson saignante pour préserver le persillage.",
+    conservationTip:
+      "Conserver sous vide au réfrigérateur entre 0°C et 4°C. Consommer dans les 5 jours après réception. Congélation possible jusqu'à 6 mois.",
     weight: "~800g (4 pièces)",
     image: "/images/wagyu.jpg",
+    gallery: ["/images/wagyu.jpg", "/images/wagyu-2.jpg", "/images/wagyu-3.jpg"],
     badge: "Exception",
     featured: true,
   },
@@ -56,8 +66,11 @@ export const products: Product[] = [
     origin: "Simmental, élevage plein air, France",
     cookingTip:
       "Sortir 30 min avant cuisson. Poêle très chaude, 3 min par face pour une cuisson saignante. Assaisonner après cuisson.",
+    conservationTip:
+      "Réfrigérateur 0-4°C, sous vide. Consommer sous 5 jours. Ne pas recongeler après décongélation.",
     weight: "~1kg (4 pièces)",
     image: "/images/simmental.jpg",
+    gallery: ["/images/simmental.jpg", "/images/simmental-2.jpg", "/images/simmental-3.jpg"],
     badge: "Populaire",
     featured: true,
   },
@@ -74,8 +87,11 @@ export const products: Product[] = [
     origin: "Race Charolaise, Bourgogne",
     cookingTip:
       "Sortir 1h avant. Saisir 4 min par face au barbecue ou à la poêle. Finir au four 180°C pendant 15 min. Repos 10 min sous aluminium.",
+    conservationTip:
+      "La maturation est déjà réalisée. Conserver au réfrigérateur et consommer dans les 3 jours après réception pour une saveur optimale.",
     weight: "~1.2kg (1 pièce)",
     image: "/images/cote-boeuf.jpg",
+    gallery: ["/images/cote-boeuf.jpg", "/images/cote-boeuf-2.jpg", "/images/cote-boeuf-3.jpg"],
     badge: "60 jours",
     featured: true,
   },
@@ -92,8 +108,11 @@ export const products: Product[] = [
     origin: "Black Pearl, élevage sélectionné",
     cookingTip:
       "Cuisson douce recommandée. Poêle chaude, 2-3 min par face. Laisser reposer autant que le temps de cuisson.",
+    conservationTip:
+      "Sous vide, entre 0°C et 4°C. Consommer dans les 5 jours. Se congèle parfaitement sous vide jusqu'à 6 mois.",
     weight: "~900g (4 pièces)",
     image: "/images/black-pearl.jpg",
+    gallery: ["/images/black-pearl.jpg", "/images/black-pearl-2.jpg"],
     badge: "Rare",
   },
   {
@@ -109,8 +128,11 @@ export const products: Product[] = [
     origin: "Race Aubrac, Aveyron",
     cookingTip:
       "La bavette se cuit vite à feu vif, 2 min par face. Le faux-filet supporte une cuisson à point. Sel et poivre du moulin.",
+    conservationTip:
+      "Réfrigérateur 0-4°C sous vide. Consommer sous 5 jours après réception.",
     weight: "~1kg (4 pièces)",
     image: "/images/aubrac.jpg",
+    gallery: ["/images/aubrac.jpg", "/images/aubrac-2.jpg"],
   },
   {
     id: "charolaise-selection",
@@ -125,8 +147,11 @@ export const products: Product[] = [
     origin: "Race Charolaise, Bourgogne",
     cookingTip:
       "Viande maigre, ne pas surcuire. Poêle bien chaude avec une noix de beurre, 3 min par face. Repos obligatoire.",
+    conservationTip:
+      "Conserver sous vide entre 0°C et 4°C. Consommer dans les 5 jours après réception.",
     weight: "~1kg (4 pièces)",
     image: "/images/charolaise.jpg",
+    gallery: ["/images/charolaise.jpg", "/images/charolaise-2.jpg"],
   },
   {
     id: "gasconne-terroir",
@@ -141,8 +166,11 @@ export const products: Product[] = [
     origin: "Race Gasconne, Pyrénées",
     cookingTip:
       "Se prête autant à la grillade qu'au braisé. Pour une grillade, feu vif 3 min par face. Pour un braisé, cuisson longue à 140°C.",
+    conservationTip:
+      "Réfrigérateur 0-4°C sous vide. Consommer sous 5 jours. Idéal pour une cuisson le jour même de réception.",
     weight: "~1kg (4 pièces)",
     image: "/images/gasconne.jpg",
+    gallery: ["/images/gasconne.jpg", "/images/gasconne-2.jpg"],
   },
 
   // --- Saucisses Maison ---
@@ -159,8 +187,11 @@ export const products: Product[] = [
     origin: "Fabrication maison, viande française",
     cookingTip:
       "Griller à feu moyen 12-15 min en les retournant régulièrement. Ne pas piquer pour garder le jus.",
+    conservationTip:
+      "Réfrigérateur 0-4°C. Consommer dans les 3 jours après réception. Congélation possible jusqu'à 3 mois.",
     weight: "~600g (6 pièces)",
     image: "/images/saucisses.jpg",
+    gallery: ["/images/saucisses.jpg", "/images/saucisses-2.jpg"],
   },
   {
     id: "merguez-artisanales",
@@ -175,8 +206,11 @@ export const products: Product[] = [
     origin: "Fabrication maison, viande française",
     cookingTip:
       "Barbecue ou poêle, feu moyen, 10-12 min. Retourner délicatement sans piquer.",
+    conservationTip:
+      "Réfrigérateur 0-4°C. Consommer dans les 3 jours. Ne pas recongeler si décongelées.",
     weight: "~500g (8 pièces)",
     image: "/images/merguez.jpg",
+    gallery: ["/images/merguez.jpg", "/images/merguez-2.jpg"],
   },
 
   // --- Charcuterie ---
@@ -193,8 +227,11 @@ export const products: Product[] = [
     origin: "Artisans charcutiers sélectionnés, France",
     cookingTip:
       "Sortir du réfrigérateur 20 min avant dégustation. Servir à température ambiante pour libérer tous les arômes.",
+    conservationTip:
+      "Réfrigérateur 0-4°C. Consommer dans les 4 jours. Une fois ouvert, emballer dans du film alimentaire.",
     weight: "~400g",
     image: "/images/charcuterie.jpg",
+    gallery: ["/images/charcuterie.jpg", "/images/charcuterie-2.jpg"],
   },
   {
     id: "terrine-campagne",
@@ -209,8 +246,11 @@ export const products: Product[] = [
     origin: "Fabrication maison",
     cookingTip:
       "Se déguste sur du pain de campagne grillé, accompagnée de cornichons et moutarde à l'ancienne.",
+    conservationTip:
+      "Réfrigérateur 0-4°C. Se conserve jusqu'à 10 jours non entamée. Une fois ouverte, consommer sous 3 jours.",
     weight: "~300g",
     image: "/images/terrine.jpg",
+    gallery: ["/images/terrine.jpg"],
   },
 
   // --- Box & Colis ---
@@ -227,8 +267,11 @@ export const products: Product[] = [
     origin: "Multiples origines premium",
     cookingTip:
       "Sortir les viandes 30 min avant. Commencer par les pièces épaisses, finir par les saucisses. Braises moyennes, pas de flammes directes.",
+    conservationTip:
+      "Réfrigérateur 0-4°C dès réception. Les différentes pièces peuvent avoir des DLC différentes — consulter les étiquettes individuelles.",
     weight: "~2.5kg",
     image: "/images/box-bbq.jpg",
+    gallery: ["/images/box-bbq.jpg", "/images/box-bbq-2.jpg", "/images/box-bbq-3.jpg"],
     badge: "Best-seller",
     featured: true,
   },
@@ -245,8 +288,11 @@ export const products: Product[] = [
     origin: "5 races françaises d'exception",
     cookingTip:
       "Chaque pièce a son conseil cuisson détaillé sur la fiche incluse dans le colis.",
+    conservationTip:
+      "Chaque pièce est emballée sous vide individuellement. Réfrigérateur 0-4°C, consommer sous 5 jours.",
     weight: "~1.5kg",
     image: "/images/box-decouverte.jpg",
+    gallery: ["/images/box-decouverte.jpg", "/images/box-decouverte-2.jpg"],
     badge: "Découverte",
   },
   {
@@ -262,17 +308,161 @@ export const products: Product[] = [
     origin: "Sélection des meilleures races mondiales",
     cookingTip:
       "Guide de cuisson détaillé inclus pour chaque pièce. Nous recommandons une cuisson pièce par pièce pour apprécier chaque race.",
+    conservationTip:
+      "Écrin isotherme. Placer immédiatement au réfrigérateur 0-4°C. Consulter les DLC individuelles sur chaque pièce.",
     weight: "~3kg",
     image: "/images/box-prestige.jpg",
+    gallery: ["/images/box-prestige.jpg", "/images/box-prestige-2.jpg", "/images/box-prestige-3.jpg"],
     badge: "Prestige",
   },
 ];
+
+// ── Produits partenaires ────────────────────────────────────────────────────
+
+export const partnerProducts: PartnerProduct[] = [
+  // --- Vins ---
+  {
+    id: "vin-rouge-cotes-provence",
+    slug: "vin-rouge-cotes-provence",
+    name: "Côtes de Provence Rouge — Domaine de la Bégude",
+    description: "Vin rouge charpenté, notes de fruits noirs et garrigue. Accord parfait avec le boeuf grillé.",
+    price: 24,
+    category: "vins",
+    image: "/images/partner/vin-rouge.jpg",
+    badge: "Accord viande",
+    pairsWith: ["boeuf-premium", "box-colis"],
+    tags: ["boeuf", "grillades", "maturé"],
+  },
+  {
+    id: "vin-rouge-bordeaux",
+    slug: "vin-rouge-bordeaux",
+    name: "Saint-Émilion Grand Cru 2019",
+    description: "Bordeaux rond et puissant, tanins soyeux. Sublime les viandes d'exception.",
+    price: 38,
+    category: "vins",
+    image: "/images/partner/bordeaux.jpg",
+    badge: "Premium",
+    pairsWith: ["boeuf-premium"],
+    tags: ["boeuf", "maturé", "wagyu", "prestige"],
+  },
+  {
+    id: "vin-rose-provence",
+    slug: "vin-rose-provence",
+    name: "Rosé de Provence — Château Minuty",
+    description: "Frais et fruité, idéal pour accompagner vos grillades estivales et charcuteries.",
+    price: 18,
+    category: "vins",
+    image: "/images/partner/rose.jpg",
+    pairsWith: ["saucisses-maison", "charcuterie", "box-colis"],
+    tags: ["grillades", "charcuterie", "barbecue", "apéritif"],
+  },
+
+  // --- Sauces & Marinades ---
+  {
+    id: "sauce-poivre",
+    slug: "sauce-poivre",
+    name: "Sauce au Poivre Artisanale",
+    description: "Sauce onctueuse au poivre vert de Madagascar. Idéale sur vos pavés et entrecôtes.",
+    price: 8,
+    category: "sauces",
+    image: "/images/partner/sauce-poivre.jpg",
+    pairsWith: ["boeuf-premium"],
+    tags: ["boeuf", "pavé", "entrecôte"],
+  },
+  {
+    id: "marinade-bbq",
+    slug: "marinade-bbq",
+    name: "Marinade BBQ Fumée",
+    description: "Marinade au paprika fumé, miel et romarin. Transforme vos grillades.",
+    price: 9,
+    category: "sauces",
+    image: "/images/partner/marinade-bbq.jpg",
+    badge: "BBQ",
+    pairsWith: ["saucisses-maison", "box-colis", "boeuf-premium"],
+    tags: ["grillades", "barbecue", "saucisses"],
+  },
+  {
+    id: "moutarde-ancienne",
+    slug: "moutarde-ancienne",
+    name: "Moutarde à l'Ancienne — Maison Fallot",
+    description: "Moutarde en grains de Bourgogne, relevée et croquante. L'accompagnement noble.",
+    price: 7,
+    category: "sauces",
+    image: "/images/partner/moutarde.jpg",
+    pairsWith: ["boeuf-premium", "charcuterie", "saucisses-maison"],
+    tags: ["boeuf", "charcuterie", "classique"],
+  },
+
+  // --- Épices & Condiments ---
+  {
+    id: "sel-guerande",
+    slug: "sel-guerande",
+    name: "Fleur de Sel de Guérande",
+    description: "Fleur de sel récoltée à la main. Finition parfaite pour vos viandes.",
+    price: 6,
+    category: "epices",
+    image: "/images/partner/fleur-sel.jpg",
+    pairsWith: ["boeuf-premium", "saucisses-maison", "charcuterie", "box-colis"],
+    tags: ["boeuf", "universel", "finition"],
+  },
+  {
+    id: "poivre-kampot",
+    slug: "poivre-kampot",
+    name: "Poivre de Kampot Noir IGP",
+    description: "Poivre rare du Cambodge, notes florales et boisées. L'accord ultime avec le boeuf.",
+    price: 12,
+    category: "epices",
+    image: "/images/partner/poivre-kampot.jpg",
+    badge: "IGP",
+    pairsWith: ["boeuf-premium"],
+    tags: ["boeuf", "maturé", "wagyu", "prestige"],
+  },
+  {
+    id: "melange-grillades",
+    slug: "melange-grillades",
+    name: "Mélange Épices Grillades",
+    description: "Paprika, cumin, coriandre, ail. Notre mélange secret pour des grillades parfaites.",
+    price: 8,
+    category: "epices",
+    image: "/images/partner/epices-grillades.jpg",
+    pairsWith: ["saucisses-maison", "box-colis", "boeuf-premium"],
+    tags: ["grillades", "barbecue", "saucisses"],
+  },
+
+  // --- Accompagnements ---
+  {
+    id: "cornichons-artisanaux",
+    slug: "cornichons-artisanaux",
+    name: "Cornichons Artisanaux au Vinaigre",
+    description: "Petits cornichons croquants, recette traditionnelle. Indispensable avec la charcuterie.",
+    price: 6,
+    category: "accompagnements",
+    image: "/images/partner/cornichons.jpg",
+    pairsWith: ["charcuterie"],
+    tags: ["charcuterie", "apéritif", "terrine"],
+  },
+  {
+    id: "pain-campagne",
+    slug: "pain-campagne",
+    name: "Pain de Campagne au Levain",
+    description: "Pain rustique au levain naturel, croûte épaisse. Parfait pour accompagner terrines et charcuteries.",
+    price: 5,
+    category: "accompagnements",
+    image: "/images/partner/pain.jpg",
+    pairsWith: ["charcuterie"],
+    tags: ["charcuterie", "terrine", "apéritif"],
+  },
+];
+
+// ── Codes promo ─────────────────────────────────────────────────────────────
 
 export const promoCodes: Record<string, number> = {
   BIENVENUE10: 10,
   CLARET20: 20,
   PREMIUM15: 15,
 };
+
+// ── Helpers produits principaux ─────────────────────────────────────────────
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
@@ -284,4 +474,38 @@ export function getProductsByCategory(category: string): Product[] {
 
 export function getFeaturedProducts(): Product[] {
   return products.filter((p) => p.featured);
+}
+
+// ── Helpers produits partenaires ─────────────────────────────────────────────
+
+export function getPartnerBySlug(slug: string): PartnerProduct | undefined {
+  return partnerProducts.find((p) => p.slug === slug);
+}
+
+/**
+ * Recommande des produits partenaires basés sur les catégories présentes dans le panier.
+ * Trie par pertinence (nombre de catégories matchées) puis limite à `limit` résultats.
+ */
+export function getRecommendedPartners(
+  cartCategories: Category[],
+  excludeIds: string[] = [],
+  limit = 6
+): PartnerProduct[] {
+  if (cartCategories.length === 0) return partnerProducts.slice(0, limit);
+
+  const uniqueCategories = [...new Set(cartCategories)];
+
+  const scored = partnerProducts
+    .filter((p) => !excludeIds.includes(p.id))
+    .map((p) => {
+      const score = uniqueCategories.reduce(
+        (acc, cat) => acc + (p.pairsWith.includes(cat) ? 1 : 0),
+        0
+      );
+      return { product: p, score };
+    })
+    .filter((s) => s.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((s) => s.product);
 }

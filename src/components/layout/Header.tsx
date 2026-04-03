@@ -130,7 +130,7 @@ function CartSidebar() {
                   />
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-primary truncate">{product.name}</p>
-                    <p className="text-xs text-gray-500 mb-2">{product.weight}</p>
+                    <p className="text-xs text-gray-500 mb-2">{"weight" in product ? product.weight : ""}</p>
                     <div className="flex items-center justify-between">
                       {/* Quantity */}
                       <div className="flex items-center gap-2">

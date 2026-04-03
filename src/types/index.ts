@@ -8,8 +8,10 @@ export interface Product {
   category: Category;
   origin: string;
   cookingTip: string;
+  conservationTip: string;
   weight: string;
   image: string;
+  gallery: string[];
   badge?: string;
   featured?: boolean;
 }
@@ -22,9 +24,32 @@ export interface CategoryInfo {
   description: string;
 }
 
+export interface PartnerProduct {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  price: number;
+  category: PartnerCategory;
+  image: string;
+  badge?: string;
+  /** IDs de catégories de produits principaux avec lesquels cet article se marie */
+  pairsWith: Category[];
+  /** Tags pour affiner les recommandations (ex: "boeuf", "grillades", "apéritif") */
+  tags: string[];
+}
+
+export type PartnerCategory = "vins" | "sauces" | "epices" | "accompagnements";
+
+export interface PartnerCategoryInfo {
+  slug: PartnerCategory;
+  name: string;
+}
+
 export interface CartItem {
-  product: Product;
+  product: Product | PartnerProduct;
   quantity: number;
+  isPartner?: boolean;
 }
 
 export interface CartState {
@@ -40,7 +65,14 @@ export interface DeliverySlot {
   available: boolean;
 }
 
-export type DeliveryMethod = "livraison" | "click-collect";
+export type DeliveryMethod = "chronofresh" | "click-collect";
+
+export interface ChronofreshEstimate {
+  minHours: number;
+  maxHours: number;
+  estimatedDate: string;
+  cutoffPassed: boolean;
+}
 
 export interface ShopConfig {
   name: string;
