@@ -24,7 +24,7 @@ export function ProductCard({ product }: ProductCardProps) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         {product.badge && (
-          <span className="absolute top-3 left-3 z-10 bg-[#7C1D1D] text-white text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
+          <span className="absolute top-3 left-3 z-10 bg-accent text-white text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full">
             {product.badge}
           </span>
         )}
@@ -34,7 +34,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <div className="flex flex-col flex-1 p-5 gap-3">
         <div className="flex-1">
           <Link href={`/nos-viandes/${product.slug}`}>
-            <h3 className="font-serif text-lg font-bold text-[#1a1a1a] leading-tight mb-1 group-hover:text-[#7C1D1D] transition-colors">
+            <h3 className="font-serif text-lg font-bold text-primary leading-tight mb-1 group-hover:text-accent transition-colors">
               {product.name}
             </h3>
           </Link>
@@ -49,13 +49,13 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <div className="flex items-center justify-between pt-2 border-t border-gray-50">
-          <span className="text-xl font-bold font-serif text-[#1a1a1a]">
+          <span className="text-xl font-bold font-serif text-primary">
             {formatPrice(product.price)}
           </span>
           <button
             type="button"
             onClick={() => addItem(product)}
-            className="bg-[#7C1D1D] hover:bg-[#9B2C2C] active:bg-[#5B1414] text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer"
+            className="bg-accent hover:bg-accent-light active:bg-accent-dark text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer"
           >
             Ajouter
           </button>

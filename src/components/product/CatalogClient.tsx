@@ -19,7 +19,7 @@ export function CatalogClient() {
   return (
     <div>
       {/* Filtres */}
-      <div className="sticky top-0 z-20 bg-[#FAF5F0] border-b border-gray-100 py-4 mb-8">
+      <div className="sticky top-16 z-20 bg-[#FAF5F0] border-b border-gray-100 py-4 mb-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
             <button

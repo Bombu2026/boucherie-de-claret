@@ -208,7 +208,7 @@ function CartSidebar() {
                 Voir le panier
               </Link>
               <Link
-                href="/commander"
+                href="/checkout"
                 onClick={() => setIsCartOpen(false)}
                 className="text-center px-4 py-3 rounded-lg text-sm font-medium text-white transition-colors"
                 style={{ backgroundColor: "var(--color-accent)" }}

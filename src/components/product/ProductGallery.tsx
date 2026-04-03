@@ -38,7 +38,7 @@ export function ProductGallery({ images, productName, badge }: ProductGalleryPro
         )}
 
         {badge && (
-          <span className="absolute top-4 left-4 z-20 bg-[#7C1D1D] text-white text-sm font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md">
+          <span className="absolute top-4 left-4 z-20 bg-accent text-white text-sm font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full shadow-md">
             {badge}
           </span>
         )}
@@ -62,7 +62,7 @@ export function ProductGallery({ images, productName, badge }: ProductGalleryPro
               className={[
                 "relative flex-shrink-0 w-20 h-16 rounded-xl overflow-hidden transition-all duration-200",
                 selectedIndex === index
-                  ? "ring-2 ring-[#7C1D1D] ring-offset-2 ring-offset-[#FAF5F0] opacity-100"
+                  ? "ring-2 ring-accent ring-offset-2 ring-offset-cream opacity-100"
                   : "ring-1 ring-gray-200 opacity-60 hover:opacity-90 hover:ring-gray-300",
               ].join(" ")}
               aria-label={`Vue ${index + 1} de ${productName}`}

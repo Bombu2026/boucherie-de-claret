@@ -9,8 +9,8 @@
   --color-cream-dark: #F0E6D6;
   --color-gold: #B8860B;
   --color-gold-light: #D4A843;
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
 /* Base */
@@ -48,6 +48,15 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse at 30% 40%, rgba(124, 29, 29, 0.2) 0%, transparent 60%);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 /* Scrollbar */

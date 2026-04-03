@@ -74,8 +74,7 @@ export function PartnerUpsell() {
 
       {/* Grille scrollable */}
       <div
-        className="flex gap-3 overflow-x-auto scroll-smooth px-5 py-4 snap-x snap-mandatory"
-        style={{ scrollbarWidth: "none" }}
+        className="flex gap-3 overflow-x-auto scroll-smooth px-5 py-4 snap-x snap-mandatory scrollbar-none"
       >
         {recommendations.map((product) => (
           <div

@@ -38,8 +38,10 @@ export default async function ProductPage({ params }: Props) {
     (p) => p.id !== product.id
   );
 
-  // Construire la galerie : image principale + gallery supplémentaires
-  const allImages = [product.image, ...product.gallery];
+  // Construire la galerie : dédupliquer l'image principale si déjà dans gallery
+  const allImages = product.gallery.length > 0
+    ? [...new Set([product.image, ...product.gallery])]
+    : [product.image];
 
   return (
     <main className="min-h-screen bg-[#FAF5F0]">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { shop } from "@/config/shop";
+import { ProductImage } from "@/components/ui/ProductImage";
 
 export const metadata: Metadata = {
   title: "Notre Histoire",
@@ -57,7 +58,14 @@ export default function NotreHistoirePage() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="relative h-[60vh] min-h-[400px] img-placeholder flex items-end">
+      <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
+        <ProductImage
+          src="/images/storytelling.jpg"
+          alt="Notre histoire — Boucherie de Claret"
+          fill
+          priority
+          sizes="100vw"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="relative z-10 max-w-4xl mx-auto px-6 pb-16 w-full">
           <p className="text-[var(--color-gold)] uppercase tracking-widest text-sm font-semibold mb-3">
@@ -97,7 +105,14 @@ export default function NotreHistoirePage() {
               </p>
             </div>
           </div>
-          <div className="img-placeholder rounded-2xl aspect-square" />
+          <div className="relative rounded-2xl aspect-square overflow-hidden">
+            <ProductImage
+              src="/images/wagyu.jpg"
+              alt="Viande persillée Wagyu — sélection Boucherie de Claret"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
         </div>
       </section>
 
@@ -140,7 +155,14 @@ export default function NotreHistoirePage() {
       {/* Section 3 — Maturation */}
       <section className="py-20 max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="img-placeholder rounded-2xl aspect-[4/3]" />
+          <div className="relative rounded-2xl aspect-[4/3] overflow-hidden">
+            <ProductImage
+              src="/images/cote-boeuf.jpg"
+              alt="Côte de boeuf maturée — savoir-faire artisanal"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
           <div>
             <p className="text-[var(--color-gold)] uppercase tracking-widest text-xs font-semibold mb-4">
               Savoir-faire
@@ -208,7 +230,14 @@ export default function NotreHistoirePage() {
                 ))}
               </div>
             </div>
-            <div className="img-placeholder rounded-2xl aspect-[4/3]" />
+            <div className="relative rounded-2xl aspect-[4/3] overflow-hidden">
+              <ProductImage
+                src="/images/box-prestige.jpg"
+                alt="Coffret prestige — engagement qualité Boucherie de Claret"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </div>
       </section>

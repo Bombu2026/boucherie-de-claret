@@ -14,7 +14,7 @@ export function Upsell({ products }: UpsellProps) {
 
   return (
     <section className="mt-16 pt-12 border-t border-gray-100">
-      <h2 className="font-serif text-2xl font-bold text-[#1a1a1a] mb-8 text-center">
+      <h2 className="font-serif text-2xl font-bold text-primary mb-8 text-center">
         Complétez votre commande
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
