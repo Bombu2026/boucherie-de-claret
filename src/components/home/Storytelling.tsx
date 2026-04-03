@@ -50,7 +50,7 @@ export default function Storytelling() {
         {/* Image */}
         <div className="relative w-full h-[420px] rounded-sm overflow-hidden">
           <ProductImage
-            src="/images/storytelling.jpg"
+            src="/images/storytelling.png"
             alt="Maître boucher — savoir-faire artisanal Boucherie de Claret"
             fill
             sizes="(max-width: 1024px) 100vw, 50vw"

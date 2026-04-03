@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="relative flex items-center justify-center min-h-[85vh] overflow-hidden">
       {/* Background image */}
       <ProductImage
-        src="/images/hero-bg.jpg"
+        src="/images/hero-bg.png"
         alt="Boucherie de Claret — viandes d'exception"
         fill
         priority

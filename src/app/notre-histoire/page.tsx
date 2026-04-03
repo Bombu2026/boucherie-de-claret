@@ -60,7 +60,7 @@ export default function NotreHistoirePage() {
       {/* Hero */}
       <section className="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
         <ProductImage
-          src="/images/storytelling.jpg"
+          src="/images/notre-histoire-hero.png"
           alt="Notre histoire — Boucherie de Claret"
           fill
           priority
@@ -107,8 +107,8 @@ export default function NotreHistoirePage() {
           </div>
           <div className="relative rounded-2xl aspect-square overflow-hidden">
             <ProductImage
-              src="/images/wagyu.jpg"
-              alt="Viande persillée Wagyu — sélection Boucherie de Claret"
+              src="/images/passion.png"
+              alt="La passion de la viande — Boucherie de Claret"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
             />
@@ -157,8 +157,8 @@ export default function NotreHistoirePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="relative rounded-2xl aspect-[4/3] overflow-hidden">
             <ProductImage
-              src="/images/cote-boeuf.jpg"
-              alt="Côte de boeuf maturée — savoir-faire artisanal"
+              src="/images/maturation.png"
+              alt="L'art de la maturation — pièces 21, 45 et 90 jours"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
             />
@@ -232,8 +232,8 @@ export default function NotreHistoirePage() {
             </div>
             <div className="relative rounded-2xl aspect-[4/3] overflow-hidden">
               <ProductImage
-                src="/images/box-prestige.jpg"
-                alt="Coffret prestige — engagement qualité Boucherie de Claret"
+                src="/images/engagement.png"
+                alt="Notre engagement qualité — traçabilité et chaîne du froid"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
               />

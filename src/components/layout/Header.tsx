@@ -129,9 +129,7 @@ function CartSidebar() {
                     <ProductImage
                       src={product.image}
                       alt={product.name}
-                      width={64}
-                      height={64}
-                      fill={false}
+                      fill
                       sizes="64px"
                     />
                   </div>

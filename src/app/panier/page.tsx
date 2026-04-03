@@ -80,9 +80,7 @@ export default function PanierPage() {
                     <ProductImage
                       src={product.image}
                       alt={product.name}
-                      width={80}
-                      height={80}
-                      fill={false}
+                      fill
                       sizes="80px"
                     />
                   </div>
